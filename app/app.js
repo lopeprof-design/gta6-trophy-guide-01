@@ -1,6 +1,8 @@
 // Leonida Trophy Guide: a checklist of GTA VI's 55 trophies with a cited guide for each,
 // a platinum roadmap, a missable warning, and progress saved in the browser (localStorage).
 // Everything it loads is a file under app/; it makes no network request at run time.
+// Tracker note: earned state lives under the versioned keys below, so a future guide
+// revision can migrate saved progress instead of wiping it.
 const EARNED_KEY = 'leonida-trophy-guide-earned-v1';
 const SPOILER_KEY = 'leonida-trophy-guide-spoilers-v1';
 const OPEN_GUIDE_KEY = 'leonida-trophy-guide-open-v1';
