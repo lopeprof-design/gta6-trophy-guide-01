@@ -1,7 +1,257 @@
-body { font-family: Arial, sans-serif; margin: 24px; color: #222; }
-header { display: flex; justify-content: space-between; align-items: baseline; }
-.controls { display: flex; gap: 16px; margin: 12px 0; align-items: center; }
-.import input { font-size: 12px; }
-table { border-collapse: collapse; width: 100%; }
-th, td { border-bottom: 1px solid #ddd; padding: 6px 8px; text-align: left; vertical-align: top; white-space: pre-line; }
-th { background: #f2f2f2; }
+/* Leonida Trophy Guide — original dark neon look. No images, no web fonts, no network. */
+:root {
+  --bg: #0e0a16;
+  --bg-soft: #171126;
+  --panel: #1c1530;
+  --panel-2: #241a3d;
+  --line: #3a2d5e;
+  --text: #f2ecff;
+  --muted: #b7a8d9;
+  --faint: #8b7bb0;
+  --pink: #ff5da2;
+  --cyan: #37e0d8;
+  --gold: #ffc857;
+  --silver: #c9d2e0;
+  --bronze: #e0a06a;
+  --plat: #b8f3ff;
+  --good: #7ee787;
+  --warn-bg: #2b1420;
+  --warn-line: #ff5da2;
+  --radius: 14px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.55;
+}
+
+.hero {
+  padding: 2.5rem 1.25rem 1.75rem;
+  background:
+    linear-gradient(115deg, rgba(255, 93, 162, .22), rgba(55, 224, 216, .14) 55%, transparent 80%),
+    var(--bg-soft);
+  border-bottom: 1px solid var(--line);
+}
+
+.hero, main, footer { max-width: 1080px; margin: 0 auto; }
+main { padding: 0 1.25rem 2rem; }
+footer { padding: 0 1.25rem 2rem; color: var(--faint); font-size: .85rem; }
+
+.kicker {
+  margin: 0 0 .4rem;
+  color: var(--cyan);
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0 0 .5rem;
+  font-size: clamp(2rem, 5vw, 3rem);
+  line-height: 1.05;
+  letter-spacing: -.01em;
+}
+
+.lede { margin: 0 0 1.25rem; max-width: 62ch; color: var(--muted); }
+
+.progress-wrap { max-width: 640px; }
+.progress-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-weight: 700;
+}
+.progress-head span:last-child { color: var(--cyan); }
+.progress-bar {
+  height: 12px;
+  margin-top: .4rem;
+  background: #0a0712;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.progress-bar div {
+  height: 100%;
+  background: linear-gradient(90deg, var(--pink), var(--cyan));
+  border-radius: 999px;
+  transition: width .3s ease;
+}
+.progress-note { margin: .5rem 0 0; color: var(--muted); font-size: .92rem; }
+
+.panel {
+  margin-top: 1.5rem;
+  padding: 1.25rem 1.25rem 1.4rem;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.panel h2 { margin: 0 0 .35rem; font-size: 1.35rem; }
+.panel-sub { margin: 0 0 1rem; color: var(--muted); }
+.tracker-progress { margin: 0 0 1rem; font-weight: 700; color: var(--cyan); }
+
+.steps { margin: 0; padding-left: 1.4rem; display: grid; gap: 1rem; }
+.steps li::marker { color: var(--pink); font-weight: 800; }
+.steps h3 { margin: 0 0 .25rem; font-size: 1.05rem; }
+.steps p { margin: 0; color: var(--muted); }
+.steps .time {
+  color: var(--cyan);
+  font-size: .85rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.warn { background: var(--warn-bg); border-color: var(--warn-line); }
+.warn p { margin: 0 0 .6rem; }
+.warn p:last-child { margin-bottom: 0; }
+.warn-sub { color: var(--muted); font-size: .95rem; }
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .9rem 1.25rem;
+  align-items: end;
+  margin-bottom: 1rem;
+}
+.controls label { display: grid; gap: .3rem; font-size: .85rem; font-weight: 600; color: var(--muted); }
+.controls input[type="search"], .controls select {
+  padding: .5rem .6rem;
+  color: var(--text);
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font: inherit;
+}
+.controls input[type="search"] { min-width: 16rem; }
+.controls input[type="search"]:focus, .controls select:focus { outline: 2px solid var(--cyan); outline-offset: 1px; }
+
+.kinds { border: 0; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: .4rem; }
+.kinds legend { padding: 0; margin-bottom: .3rem; font-size: .85rem; font-weight: 600; color: var(--muted); }
+.chip {
+  padding: .42rem .8rem;
+  color: var(--text);
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font: inherit;
+  font-size: .9rem;
+  cursor: pointer;
+}
+.chip:hover { border-color: var(--cyan); }
+.chip.active { background: var(--pink); border-color: var(--pink); color: #160a12; font-weight: 700; }
+
+.toggle { display: flex !important; flex-direction: row; align-items: center; gap: .45rem; cursor: pointer; }
+.toggle input { accent-color: var(--pink); width: 1.05rem; height: 1.05rem; }
+
+.data-controls { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; margin-bottom: 1rem; }
+.data-controls button, .import-btn {
+  padding: .5rem .9rem;
+  color: var(--text);
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font: inherit;
+  font-size: .92rem;
+  cursor: pointer;
+}
+.data-controls button:hover, .import-btn:hover { border-color: var(--cyan); }
+.import-btn input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.save-note { color: var(--good); font-size: .9rem; min-height: 1.2em; }
+
+.empty-note {
+  padding: .9rem 1rem;
+  background: var(--bg-soft);
+  border: 1px dashed var(--line);
+  border-radius: 10px;
+  color: var(--muted);
+}
+
+.trophy-list { list-style: none; margin: 0; padding: 0; display: grid; gap: .7rem; }
+
+.trophy {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: .35rem .8rem;
+  padding: .85rem .95rem;
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.trophy.earned { border-color: var(--good); }
+.trophy.earned .trophy-name { text-decoration: line-through; text-decoration-thickness: 2px; }
+
+.trophy-check { margin-top: .25rem; width: 1.25rem; height: 1.25rem; accent-color: var(--pink); cursor: pointer; }
+
+.trophy-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: .35rem .6rem; }
+.trophy-name { font-size: 1.05rem; font-weight: 750; }
+.grade {
+  padding: .1rem .5rem;
+  border-radius: 999px;
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.grade-platinum { background: var(--plat); color: #0a2a33; }
+.grade-gold { background: var(--gold); color: #332200; }
+.grade-silver { background: var(--silver); color: #1c2433; }
+.grade-bronze { background: var(--bronze); color: #331a08; }
+
+.tag {
+  padding: .1rem .5rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: .75rem;
+  font-weight: 600;
+}
+.tag-missable { border-color: var(--warn-line); color: var(--pink); }
+.tag-hidden { color: var(--faint); }
+
+.trophy-desc { margin: 0; color: var(--muted); font-style: italic; }
+.trophy-meta { margin: 0; color: var(--faint); font-size: .85rem; }
+
+.guide-toggle {
+  justify-self: start;
+  margin-top: .35rem;
+  padding: .3rem .7rem;
+  color: var(--cyan);
+  background: transparent;
+  border: 1px solid var(--cyan);
+  border-radius: 8px;
+  font: inherit;
+  font-size: .88rem;
+  cursor: pointer;
+}
+.guide-toggle:hover { background: rgba(55, 224, 216, .12); }
+
+.guide { margin: .5rem 0 0; color: var(--text); }
+.guide p { margin: 0 0 .5rem; }
+.guide p:last-child { margin-bottom: 0; }
+.sources { font-size: .88rem; color: var(--muted); }
+.sources a { color: var(--cyan); }
+.sources a:hover { color: var(--pink); }
+
+.spoiler-note {
+  margin: 0;
+  padding: .6rem .8rem;
+  background: var(--panel-2);
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+  color: var(--muted);
+  font-size: .92rem;
+}
+
+.footnote { margin: 1.25rem 0 0; color: var(--faint); font-size: .88rem; }
+
+@media (max-width: 640px) {
+  .controls input[type="search"] { min-width: 0; width: 100%; }
+  .trophy { padding: .75rem; }
+}

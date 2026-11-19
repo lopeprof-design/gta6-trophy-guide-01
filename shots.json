@@ -1,5 +1,1 @@
-[
-  { "file": "1-checklist.jpg", "path": "/", "viewport": { "width": 1280, "height": 800 } },
-  { "file": "2-silver.jpg", "path": "/", "grade": "silver", "viewport": { "width": 1280, "height": 800 } },
-  { "file": "3-bronze.jpg", "path": "/", "grade": "bronze", "scroll": 1400, "viewport": { "width": 1280, "height": 800 } }
-]
+[{"file":"01-cover.png","note":"Tracker with filters, progress, an earned trophy and its guide open with sources","path":"/","viewport":{"height":800,"width":1280}},{"file":"02-roadmap.png","note":"Platinum roadmap and the missable-trophy warning","path":"/","viewport":{"height":800,"width":1280}},{"file":"03-tracker.png","note":"Missable filter, spoiler setting and export controls, with the missable trophy's guide open","path":"/","viewport":{"height":800,"width":1280}},{"file":"04-guide.png","note":"A Long Road guide open with its sources, spoiler-hidden story trophies above it","path":"/","viewport":{"height":800,"width":1280}}]

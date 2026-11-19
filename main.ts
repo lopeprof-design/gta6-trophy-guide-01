@@ -22,6 +22,10 @@ import { buildDossier } from './vendor/makefun-frontend.ts';
 const here = fileURLToPath(new URL('.', import.meta.url));
 const out = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
 
+// Lapis: the guide being handed in is the Leonida Trophy Guide — 55 trophies, a cited guide
+// for each, a platinum roadmap and a missable warning, all in app/ and screenshots/.
+console.log(`Handing in the Leonida Trophy Guide (app/ + screenshots/) to ${out}.`);
+
 mkdirSync(out, { recursive: true });
 cpSync(join(here, 'app'), join(out, 'app'), { recursive: true });
 mkdirSync(join(out, 'screenshots'), { recursive: true });
